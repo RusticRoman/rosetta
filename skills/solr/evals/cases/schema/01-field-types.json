@@ -56,18 +56,18 @@
     "notes": "text_general (and text_en) default to StandardTokenizer"
   },
   {
-    "id": "trie-to-point-upgrade",
+    "id": "numeric-field-type-choice",
     "category": "field-types",
     "difficulty": "medium",
-    "prompt": "A schema uses `TrieIntField` for a numeric field. The index is being upgraded from Solr 8 to 9. What must change?",
+    "prompt": "Which field type should you use for a numeric field that needs efficient range queries and sorting in Solr 9.x?",
     "asserts": {
       "must_contain": [
         "Point"
       ],
       "must_match_regex": [
-        "IntPointField|Point.*field|removed"
+        "IntPointField|LongPointField|DoublePointField|PointField|pint|plong|pdouble"
       ]
     },
-    "notes": "Trie* field types were removed in Solr 9.0; migrate TrieIntField to IntPointField and reindex (on-disk encoding differs)"
+    "notes": "Use a *PointField (e.g. IntPointField/LongPointField; pint/plong in the default schema) with docValues for range queries and sorting. Trie* types were removed in 9.0, so Point fields are the only option."
   }
 ]

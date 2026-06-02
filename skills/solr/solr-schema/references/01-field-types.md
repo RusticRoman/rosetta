@@ -24,7 +24,6 @@ The default general-purpose analyzed type. Index-time chain:
   <analyzer type="index">
     <tokenizer class="solr.StandardTokenizerFactory"/>
     <filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
-    <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms.txt" expand="true"/>
     <filter class="solr.LowerCaseFilterFactory"/>
   </analyzer>
   <analyzer type="query">
@@ -40,7 +39,7 @@ The pieces:
 - **`StandardTokenizer`** — the default tokenizer for both `text_general` and `text_en`. Splits on Unicode word boundaries and drops most punctuation. (`title_t` of `"Pro-Grade Kettle"` → `pro`, `grade`, `kettle`.)
 - **`LowerCaseFilter`** — case-folds every token so `Kettle` matches `kettle`.
 - **`StopFilter`** — removes common words (`the`, `and`, `a`) from `stopwords.txt`.
-- **`SynonymGraphFilter`** — at **index** time in the example above; expands synonyms into a token graph. Synonym placement (index vs query) is a frequent bug — see `04-synonyms.md`.
+- **Synonyms** — not shown here; the synonym filter and its index-vs-query placement (a frequent bug, and it requires `FlattenGraphFilter` when applied at index time) are covered in `04-synonyms.md`.
 
 `text_general` does **no stemming**. `"running"` and `"run"` are distinct tokens.
 

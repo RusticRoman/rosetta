@@ -1,6 +1,6 @@
 # Synonyms: SynonymGraphFilter, Index-vs-Query Placement, and synonyms.txt (Solr 9.x)
 
-This file covers synonym strategy at the schema layer: which filter factory to use, where in the analyzer chain to place it, the `synonyms.txt` rule formats, and the managed REST API. For query-side relevance effects (`mm`, phrase, `qf`) see the **solr-query** skill; for a deeper format walkthrough see `solr-semantic-search` synonyms notes. Examples here are vendor-neutral product-catalog terms.
+This file covers synonym strategy at the schema layer: which filter factory to use, where in the analyzer chain to place it, the `synonyms.txt` rule formats, and the managed REST API. For query-side relevance effects (`mm`, phrase, `qf`) see the **solr-query** skill; for the tagger's angle on synonyms (lookup via `SynonymsStorage`) see the **solr-semantic-search** skill. Examples here are vendor-neutral product-catalog terms.
 
 ---
 

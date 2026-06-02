@@ -125,7 +125,7 @@ curl -X POST -H 'Content-type: application/json' \
       }
     },
     "add-field": { "name": "title_t", "type": "text_title", "indexed": true, "stored": true },
-    "add-copy-field": { "source": "title_t", "dest": "brand_s" }
+    "add-copy-field": { "source": "title_t", "dest": "text" }
   }'
 ```
 
