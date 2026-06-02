@@ -406,7 +406,7 @@ Tokens with spaces are multi-word entries. They work identically in both rule ty
 - **In `solr.SynonymGraphFilterFactory`** (analyzer chain) — multi-word synonyms produce graph token streams. Required: `solr.FlattenGraphFilterFactory` after the SynonymGraphFilter on the index analyzer (not the query analyzer).
 - **In your custom `SynonymsStorage`** (the tagger's lookup, see `03-tagging.md`) — multi-word synonyms create graph edges spanning multiple positions. The graph layer represents them via **quasi-positions** (negative-id intermediate vertices — see `04-graph-paths.md`).
 
-Multi-word synonyms work query-time only in standard Solr setups (index-time multi-word has known position-length issues; the SynonymGraphFilter approach is `sow=false` query-time). In the custom tagger, both index-time and query-time work because the tagger explicitly handles multi-position spans.
+In standard Solr, multi-word synonyms are best applied at **index time** with `SynonymGraphFilter` followed by `FlattenGraphFilter` — FlattenGraph flattens the token graph and corrects the position lengths, so this is the recommended default and sidesteps the query-time graph problems (broken `mm`/phrase counting, `sow` interactions). Query-time multi-word synonyms are the fragile path. In the custom tagger, both index-time and query-time work because the tagger explicitly handles multi-position spans. See `solr-schema/references/04-synonyms.md` for the full treatment.
 
 ### File format details
 
