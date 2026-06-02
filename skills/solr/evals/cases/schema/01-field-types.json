@@ -1,0 +1,73 @@
+[
+  {
+    "id": "string-misused-for-fulltext",
+    "category": "field-types",
+    "difficulty": "easy",
+    "prompt": "A field holds product titles for full-text search but is defined as a `string` (StrField). What's wrong and what type should it be?",
+    "asserts": {
+      "must_contain": [
+        "text",
+        "tokeniz"
+      ],
+      "must_match_regex": [
+        "text_general|text_en|TextField"
+      ]
+    },
+    "notes": "StrField is one opaque token, not tokenized; full-text titles need a TextField type (text_general or text_en) so phrase/partial search works"
+  },
+  {
+    "id": "when-use-string",
+    "category": "field-types",
+    "difficulty": "easy",
+    "prompt": "When should a field be `string`/StrField instead of a `text_*` type? One sentence.",
+    "asserts": {
+      "must_match_regex": [
+        "exact|not tokeniz|facet|sort|id|identifier"
+      ]
+    },
+    "notes": "Use string for exact match, faceting, sorting, grouping, and identifiers (uniqueKey) where the value must stay one untokenized token"
+  },
+  {
+    "id": "text-en-filter-chain",
+    "category": "field-types",
+    "difficulty": "medium",
+    "prompt": "Name the core filters in a typical English full-text analyzer chain (text_en). List at least three.",
+    "asserts": {
+      "must_contain": [
+        "LowerCase"
+      ],
+      "must_match_regex": [
+        "Stop|Stem|Porter|Snowball|EnglishPossessive|KeywordMarker"
+      ]
+    },
+    "notes": "text_en chain: StandardTokenizer + StopFilter + LowerCaseFilter + EnglishPossessiveFilter + KeywordMarkerFilter + PorterStem/Snowball"
+  },
+  {
+    "id": "text-general-tokenizer",
+    "category": "field-types",
+    "difficulty": "easy",
+    "prompt": "One-line: which tokenizer does text_general use by default?",
+    "asserts": {
+      "must_contain": [
+        "StandardTokenizer"
+      ],
+      "max_length_chars": 60
+    },
+    "notes": "text_general (and text_en) default to StandardTokenizer"
+  },
+  {
+    "id": "trie-to-point-upgrade",
+    "category": "field-types",
+    "difficulty": "medium",
+    "prompt": "A schema uses `TrieIntField` for a numeric field. The index is being upgraded from Solr 8 to 9. What must change?",
+    "asserts": {
+      "must_contain": [
+        "Point"
+      ],
+      "must_match_regex": [
+        "IntPointField|Point.*field|removed"
+      ]
+    },
+    "notes": "Trie* field types were removed in Solr 9.0; migrate TrieIntField to IntPointField and reindex (on-disk encoding differs)"
+  }
+]
